@@ -1,7 +1,18 @@
 <template>
-  <div id="nav">
+  <div class="nav">
     <router-link to="/money">Money</router-link>|
     <router-link to="/statistics">Statistics</router-link>|
     <router-link to="/labels">Labels</router-link>
   </div>
 </template>
+<script lang="ts">
+export default {
+  name: "Nav",
+};
+</script>
+
+<style lang="scss" scoped>
+.nav {
+  border: 1px solid red;
+}
+</style>

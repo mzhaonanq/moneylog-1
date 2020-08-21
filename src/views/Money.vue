@@ -1,13 +1,16 @@
 <template>
-  <div>
-    我是钱
-    <Nav />
-  </div>
+  <Layout>
+    <p>我是钱</p>
+  </Layout>
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-export default Vue.extend({
+import Layout from "@/components/Layout.vue";
+export default {
   name: "Money",
-});
+  components: {
+    Layout,
+  },
+};
 </script>
+

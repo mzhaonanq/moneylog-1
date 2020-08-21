@@ -1,13 +1,15 @@
 <template>
-  <div>
-    我是标签
-    <Nav />
-  </div>
+  <Layout>
+    <p>我是标签</p>
+  </Layout>
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-export default Vue.extend({
+import Layout from "@/components/Layout.vue";
+export default {
   name: "Labels",
-});
+  components: {
+    Layout,
+  },
+};
 </script>
