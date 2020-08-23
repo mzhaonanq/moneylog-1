@@ -1,21 +1,21 @@
 <template>
-  <div class="container">
-    <div class="content">
+  <div class="container" :class="classPrefix && `${classPrefix}-wrapper`">
+    <div class="content" :class="classPrefix && `${classPrefix}-content`">
       <slot />
     </div>
     <Nav />
   </div>
 </template>
 
-  <script lang="ts">
+<script lang="ts">
 export default {
   name: "Layout",
+  props: ['classPrefix'],
 };
 </script>
 
 <style lang="scss" scoped>
 .container {
-  border: 1px solid blue;
   display: flex;
   flex-direction: column;
   height: 100vh;

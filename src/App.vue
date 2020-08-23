@@ -1,4 +1,3 @@
-
 <template>
   <div id="app">
     <router-view />
@@ -9,32 +8,18 @@
 export default {
   name: "App",
 };
-</script>script
+</script>
+script
 
 <style lang="scss">
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
+@import "~@/assets/style/helper.scss";
+@import "~@/assets/style/reset.scss";
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: $font-hei;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+  line-height: 1.5;
+  font-size: 16px;
+  color: #333;
 }
 </style>
