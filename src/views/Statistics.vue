@@ -1,4 +1,3 @@
-import Layout from '@/components/Layout.vue';
 <template>
   <Layout>
     <p>我是数据</p>
