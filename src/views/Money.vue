@@ -2,7 +2,9 @@
   <Layout class-prefix="layout">
     <NumberPad @update:value="onUpdateAmount" @submit="saveRecord" />
     <Types :value='record.type' @update:value="onUpdateType" />
+    <div class="notes-wrapper">
     <Notes field-name="备注" placeholder="在这里输入备注" @update:value="onUpdateNotes" />
+    </div>
     <Tags :data-source.sync="tags" @update:value="onUpdateTags" />
     {{recordList}}
   </Layout>
@@ -20,12 +22,14 @@ import recordListModel from "@/models/recordListModel.ts"
 import tagListModel from '@/models/tagListModel.ts'
 
 
+
 @Component({
   components: {
     Tags,
     Notes,
     NumberPad,
     Types,
+ 
   },
 })
 export default class Money extends Vue {
@@ -62,5 +66,8 @@ export default class Money extends Vue {
 .layout-content {
   display: flex;
   flex-direction: column-reverse;
+}
+.notes-wrapper{
+  padding:12px 0;
 }
 </style>
