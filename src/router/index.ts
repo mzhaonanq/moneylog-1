@@ -5,6 +5,8 @@ import Statistics from "@/views/Statistics.vue";
 import Labels from "@/views/Labels.vue";
 import Money from "@/views/Money.vue";
 import NotFound from "@/views/NotFound.vue";
+import EditLabel from '@/views/EditLabel.vue';
+
 Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
@@ -25,9 +27,14 @@ const routes: Array<RouteConfig> = [
     component: Labels,
   },
   {
+    path: '/labels/edit',
+    component : EditLabel,
+  },
+  {
     path: "*",
     component: NotFound,
   },
+  
   // {
   //   path: "/home",
   //   name: "Home",
