@@ -27,7 +27,7 @@ export default class Labels extends Vue {
     if (name) {
       const result = tagListModel.create(name);
       if(result==='duplicated'){
-        window.alert('重复啦 ')
+        window.alert('标签名重复啦 ')
       }else if(result==='success'){
         window.alert('添加成功')
       }
