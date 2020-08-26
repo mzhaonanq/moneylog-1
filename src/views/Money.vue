@@ -1,12 +1,16 @@
 <template>
   <Layout class-prefix="layout">
     <NumberPad @update:value="onUpdateAmount" @submit="saveRecord" />
-    <Types :value='record.type' @update:value="onUpdateType" />
+    <Types :value="record.type" @update:value="onUpdateType" />
     <div class="notes-wrapper">
-    <Notes field-name="备注" placeholder="在这里输入备注" @update:value="onUpdateNotes" />
+      <Notes
+        field-name="备注"
+        placeholder="在这里输入备注"
+        @update:value="onUpdateNotes"
+      />
     </div>
     <Tags :data-source.sync="tags" @update:value="onUpdateTags" />
-    {{recordList}}
+    {{ recordList }}
   </Layout>
 </template>
 
@@ -18,10 +22,8 @@ import Types from "@/components/money/Types.vue";
 import Notes from "@/components/money/Notes.vue";
 import Tags from "@/components/money/Tags.vue";
 import { Component, Watch } from "vue-property-decorator";
-import recordListModel from "@/models/recordListModel.ts"
-import tagListModel from '@/models/tagListModel.ts'
-
-
+import recordListModel from "@/models/recordListModel.ts";
+import tagListModel from "@/models/tagListModel.ts";
 
 @Component({
   components: {
@@ -29,14 +31,13 @@ import tagListModel from '@/models/tagListModel.ts'
     Notes,
     NumberPad,
     Types,
- 
   },
 })
 export default class Money extends Vue {
   tags = ["衣", "食", "住", "行"];
   record: RecordItem = { tags: [], notes: "", type: "-", amount: 0 };
-  recordList = recordListModel.fetch()
-  tagList = tagListModel.fetch()
+  recordList = recordListModel.fetch();
+  tagList = tagListModel.fetch();
   onUpdateTags(value: string[]) {
     this.record.tags = value;
   }
@@ -49,17 +50,14 @@ export default class Money extends Vue {
   onUpdateAmount(value: string) {
     this.record.amount = parseFloat(value);
   }
-  saveRecord(){
-    const record2: RecordItem = recordListModel.clone(this.record)
-    record2.recordTime = new Date();
-    this.recordList.push(record2)
+  saveRecord() {
+    recordListModel.create(this.record);
   }
-  @Watch('recordList')
-    onRecordListChange(){
-     recordListModel.save(this.recordList)
-    }
+  @Watch("recordList")
+  onRecordListChange() {
+    recordListModel.save();
   }
-
+}
 </script>
 
 <style lang="scss">
@@ -67,7 +65,7 @@ export default class Money extends Vue {
   display: flex;
   flex-direction: column-reverse;
 }
-.notes-wrapper{
-  padding:12px 0;
+.notes-wrapper {
+  padding: 12px 0;
 }
 </style>
