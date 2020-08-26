@@ -1,8 +1,13 @@
 <template>
   <Layout>
     <div class="tags">
-      <router-link class="tag" v-for="tag in tags" :key="tag.id" :to="`/labels/edit/${tag.id}`">
-        <span>{{tag.name}}</span>
+      <router-link
+        class="tag"
+        v-for="tag in tags"
+        :key="tag.id"
+        :to="`/labels/edit/${tag.id}`"
+      >
+        <span>{{ tag.name }}</span>
         <Icons name="right" />
       </router-link>
     </div>
@@ -17,21 +22,22 @@ import Vue from "vue";
 import Layout from "@/components/Layout.vue";
 import Icons from "@/components/Icons.vue";
 import { Component } from "vue-property-decorator";
-import tagListModel from "@/models/tagListModel.ts";
-import Button from '@/components/Button.vue';
+import Button from "@/components/Button.vue";
+import store from "@/store/index2.ts";
 
 @Component({
-  components:{
-    Button
-  }
+  components: {
+    Button,
+  },
 })
 export default class Labels extends Vue {
-  tags = window.tagList
+  tags = store.tagList;
   createTag() {
     const name = window.prompt("请输入标签名");
-    if (name) {
-      window.createTag(name)
+    if (!name) {
+      return window.alert("标签名不能为空");
     }
+    store.createTag(name);
   }
 }
 </script>
@@ -59,7 +65,6 @@ export default class Labels extends Vue {
   background: #767676;
   color: white;
   border-radius: 4px;
-  margin-right: 16px;
   height: 40px;
   padding: 0 16px;
   &-wrapper {
@@ -67,5 +72,5 @@ export default class Labels extends Vue {
     padding: 16px;
     margin-top: 44-16px;
   }
-} 
+}
 </style>
