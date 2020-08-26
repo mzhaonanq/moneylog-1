@@ -27,4 +27,6 @@ interface Window {
     name: string
   ) => "success" | "duplicate" | "not found";
   findTag: (id: string) => Tag;
+  recordList: RecordItem[];
+  createRecord: (record: RecordItem) => void;
 }
