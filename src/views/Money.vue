@@ -33,11 +33,10 @@ import tagListModel from "@/models/tagListModel.ts";
     Types,
   },
 })
-export default class Money extends Vue {
-  tags = ["衣", "食", "住", "行"];
+export default class Money extends Vue {  
+  tags = window.tagList
   record: RecordItem = { tags: [], notes: "", type: "-", amount: 0 };
   recordList = recordListModel.fetch();
-  tagList = tagListModel.fetch();
   onUpdateTags(value: string[]) {
     this.record.tags = value;
   }
