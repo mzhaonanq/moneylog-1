@@ -1,8 +1,8 @@
 import recordStore from './recordStore';
 import tagStore from './tagStore';
-const store = {
+const store2 = {
     ...recordStore,
     ...tagStore,
 }
 
-export default store
+export default store2

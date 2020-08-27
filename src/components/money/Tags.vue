@@ -7,8 +7,8 @@
       <li
         v-for="tag in tagList"
         :key="tag.id"
-        :class="{ selected: selectedTags.indexOf(tag) >= 0 }"
         @click="toggle(tag)"
+        :class="{ selected: selectedTags.indexOf(tag.name) >= 0 }"
       >
         {{ tag.name }}
       </li>
@@ -19,19 +19,20 @@
 <script lang="ts">
 import Vue from "vue";
 import { Component} from "vue-property-decorator";
-import store from "@/store/index2";
+import store2 from "@/store/index2";
 
 @Component
 export default class Tags extends Vue {
-  tagList = store.fetchTags();
+  tagList = store2.fetchTags();
   selectedTags: string[] = [];
 
-  toggle(tag: string) {
-    const index = this.selectedTags.indexOf(tag);
+  toggle(tag: Tag) {
+    
+    const index = this.selectedTags.indexOf(tag.name);
     if (index >= 0) {
       this.selectedTags.splice(index, 1);
     } else {
-      this.selectedTags.push(tag);
+      this.selectedTags.push(tag.name);
     }
     this.$emit("update:value", this.selectedTags);
   }
@@ -41,7 +42,7 @@ export default class Tags extends Vue {
     if (!name) {
       return window.alert("标签名不能为空");
     }
-    store.createTag(name);
+    store2.createTag(name);
   }
 }
 </script>

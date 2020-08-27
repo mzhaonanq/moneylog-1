@@ -18,11 +18,12 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+
 import { Component } from "vue-property-decorator";
 import Notes from "@/components/money/Notes.vue";
 import Button from "../components/Button.vue";
-import store from "@/store/index2.ts"
+import store2 from "@/store/index2.ts"
+import Vue from 'vue';
 @Component({
   components: {
     Notes,
@@ -32,19 +33,19 @@ import store from "@/store/index2.ts"
 export default class EditLabel extends Vue {
   tag?: Tag = undefined;
   created() {
-    this.tag = store.findTag(this.$route.params.id);
+    this.tag = store2.findTag(this.$route.params.id);
     if (!this.tag) {
       this.$router.replace("/404");
     }
   }
   update(name: string) {
     if (this.tag) {
-      store.updateTag(this.tag.id, name);
+      store2.updateTag(this.tag.id, name);
     }
   }
   remove() {
     if (this.tag) {
-      if (store.removeTag(this.tag.id)) {
+      if (store2.removeTag(this.tag.id)) {
         this.$router.back();
       } else {
         window.alert("删除失败");
@@ -66,8 +67,6 @@ export default class EditLabel extends Vue {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  > .title {
-  }
   > .leftIcon {
     width: 24px;
     height: 24px;

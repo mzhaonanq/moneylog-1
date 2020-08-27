@@ -1,11 +1,11 @@
-import Vue from "vue";
 import App from "@/App.vue";
+import Icons from "@/components/Icons.vue";
+import Layout from "@/components/Layout.vue";
+import Nav from "@/components/Nav.vue";
 import "@/registerServiceWorker";
 import router from "@/router";
 import store from "@/store";
-import Nav from "@/components/Nav.vue";
-import Icons from "@/components/Icons.vue";
-import Layout from "@/components/Layout.vue";
+import Vue from "vue";
 
 Vue.config.productionTip = false;
 
