@@ -1,7 +1,7 @@
 <template>
   <Layout class-prefix="layout">
     <NumberPad @update:value="onUpdateAmount" @submit="saveRecord" />
-    <Types :value="record.type" @update:value="onUpdateType" />
+    <Tabs :data-source="recordTypeList" :value.sync="record.type" />
     <div class="notes-wrapper">
       <Notes
         @update:value="onUpdateNotes"
@@ -16,22 +16,23 @@
 <script lang="ts">
 import Vue from "vue";
 import NumberPad from "@/components/money/NumberPad.vue";
-import Types from "@/components/money/Types.vue";
 import Notes from "@/components/money/Notes.vue";
 import Tags from "@/components/money/Tags.vue";
 import { Component } from "vue-property-decorator";
+import Tabs from '@/components/Tabs.vue';
+import recordTypeList from '@/constants/recordTypeList.ts';
 
 @Component({
   components: {
     Tags,
     Notes,
     NumberPad,
-    Types,
+    Tabs,
   },
 })
 export default class Money extends Vue {
   record: RecordItem = { tags: [], notes: "", type: "-", amount: 0 };
-
+  recordTypeList = recordTypeList
   get recordList() {
     return this.$store.state.recordList;
   }
