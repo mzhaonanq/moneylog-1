@@ -18,6 +18,7 @@ const recordStore = {
     this.recordList?.push(record2);
     recordStore.saveRecords();
   },
+  
 };
 recordStore.fetchRecords()
 
