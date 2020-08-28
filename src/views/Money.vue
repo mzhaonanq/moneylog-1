@@ -3,7 +3,11 @@
     <NumberPad @update:value="onUpdateAmount" @submit="saveRecord" />
     <Types :value="record.type" @update:value="onUpdateType" />
     <div class="notes-wrapper">
-      <Notes  @update:value="onUpdateNotes" field-name="备注" placeholder="在这里输入备注"/>
+      <Notes
+        @update:value="onUpdateNotes"
+        field-name="备注"
+        placeholder="在这里输入备注"
+      />
     </div>
     <Tags @update:value="onUpdateTags" />
   </Layout>
@@ -24,18 +28,16 @@ import { Component } from "vue-property-decorator";
     NumberPad,
     Types,
   },
-  computed:{
-    recordList(){
-      return this.$store.state.recordList;
-    }
-  }
 })
-export default class Money extends Vue {  
-
+export default class Money extends Vue {
   record: RecordItem = { tags: [], notes: "", type: "-", amount: 0 };
-  
-  created(){
-    this.$store.commit("fetchRecords")
+
+  get recordList() {
+    return this.$store.state.recordList;
+  }
+
+  created() {
+    this.$store.commit("fetchRecords");
   }
   onUpdateNotes(value: string) {
     this.record.notes = value;
@@ -46,11 +48,11 @@ export default class Money extends Vue {
   onUpdateAmount(value: string) {
     this.record.amount = parseFloat(value);
   }
-  onUpdateTags(value: string[]){
-    this.record.tags =value
+  onUpdateTags(value: string[]) {
+    this.record.tags = value;
   }
   saveRecord() {
-    this.$store.commit("createRecord",this.record);
+    this.$store.commit("createRecord", this.record);
   }
 }
 </script>

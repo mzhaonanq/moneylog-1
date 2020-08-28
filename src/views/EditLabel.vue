@@ -18,11 +18,11 @@
 </template>
 
 <script lang="ts">
-
 import { Component } from "vue-property-decorator";
 import Notes from "@/components/money/Notes.vue";
 import Button from "../components/Button.vue";
-import Vue from 'vue';
+import Vue from "vue";
+import store from "@/store";
 @Component({
   components: {
     Notes,
@@ -30,10 +30,12 @@ import Vue from 'vue';
   },
 })
 export default class EditLabel extends Vue {
-  tag?: Tag = undefined;
+  get tag() {
+    return this.$store.state.currentTag;
+  }
   created() {
-    // TODO
-    // this.tag = store2.findTag(this.$route.params.id);
+    const id = this.$route.params.id;
+    this.$store.commit("setCurrentTag", id);
     if (!this.tag) {
       this.$router.replace("/404");
     }
@@ -46,7 +48,7 @@ export default class EditLabel extends Vue {
   }
   remove() {
     if (this.tag) {
-      return
+      return;
       // TODO
       // if (store2.removeTag(this.tag.id)) {
       //   this.$router.back();
