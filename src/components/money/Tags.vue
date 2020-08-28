@@ -10,7 +10,7 @@
         @click="toggle(tag)"
         :class="{ selected: selectedTags.indexOf(tag.name) >= 0 }"
       >
-        {{ tag.name }}
+        { 
       </li>
     </ul>
   </div>
@@ -19,15 +19,21 @@
 <script lang="ts">
 import Vue from "vue";
 import { Component} from "vue-property-decorator";
-import store2 from "@/store/index2";
+import store from '@/store';
 
-@Component
+@Component({
+  computed:{
+    tagList(){
+      // TODO
+      //  return this.$store.commit("ftechTags")
+      return []
+    }
+  }
+})
 export default class Tags extends Vue {
-  tagList = store2.fetchTags();
   selectedTags: string[] = [];
 
   toggle(tag: Tag) {
-    
     const index = this.selectedTags.indexOf(tag.name);
     if (index >= 0) {
       this.selectedTags.splice(index, 1);
@@ -42,7 +48,8 @@ export default class Tags extends Vue {
     if (!name) {
       return window.alert("标签名不能为空");
     }
-    store2.createTag(name);
+    // TODO
+    // this.$store.commit("createTag",name);
   }
 }
 </script>

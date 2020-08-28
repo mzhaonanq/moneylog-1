@@ -12,7 +12,6 @@ const recordStore = {
   saveRecords() {
     window.localStorage.setItem("recordList", JSON.stringify(this.recordList));
   },
- 
   createRecord(record: RecordItem) {
     const record2: RecordItem = clone(record);
     record2.recordTime = new Date();
