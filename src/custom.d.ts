@@ -1,11 +1,10 @@
 type RecordItem = {
-  tags: string[];
+  tags: Tag[];
   notes: string;
   type: string;
   amount: number;
   recordTime?: string;
 };
-
 
 type RootState = {
   recordList: RecordItem[];
@@ -18,16 +17,6 @@ type Tag = {
   name: string;
 };
 
-
-//待删：
-// type TagListModel = {
-//   data: Tag[];
-//   fetch: () => Tag[];
-//   create: (name: string) => "success" | "duplicated";
-//   update: (id: string, name: string) => "success" | "duplicate" | "not found";
-//   remove: (id: string) => boolean;
-//   save: () => void;
-// };
 
 
 
