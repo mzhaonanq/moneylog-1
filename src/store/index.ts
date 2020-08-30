@@ -14,19 +14,24 @@ export default new Vuex.Store({
     recordList: [],
     tagList: [],
     currentTag: undefined,
+    createRecordError: null
   } as RootState,
   mutations: {
     fetchRecords(state) {
-      console.log("来取数据了");
       state.recordList = JSON.parse(
         window.localStorage.getItem("recordList") || "[]"
       ) as RecordItem[];
+      if(!state.tagList || state.tagList.length===0){
+        store.commit("createTag",'衣')
+        store.commit("createTag",'食')
+        store.commit("createTag",'住')
+        store.commit("createTag",'行')
+      }
     },
     createRecord(state, record) {
       const record2: RecordItem = clone(record);
       record2.recordTime = new Date().toISOString();
       state.recordList.push(record2);
-      console.log(state.recordList);
       store.commit("saveRecords");
     },
     saveRecords(state) {
@@ -48,7 +53,6 @@ export default new Vuex.Store({
         const id = createId().toString();
         state.tagList.push({ id: id, name: name });
         store.commit("saveTags");
-        window.alert("添加成功");
       }
     },
     saveTags(state) {
@@ -88,6 +92,4 @@ export default new Vuex.Store({
       }
     },
   },
-  actions: {},
-  modules: {},
 });
