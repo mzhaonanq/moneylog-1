@@ -5,7 +5,7 @@
         :data-source="recordTypeList"
         :value.sync="type"
     />
-
+      <Charts :options="x"/>
     <ol v-if="groupedList.length>0">
       <li v-for="(group, index) in groupedList" :key="index">
         <h3 class="title">
@@ -33,10 +33,12 @@ import Tabs from '@/components/Tabs.vue';
 import recordTypeList from '@/constants/recordTypeList.ts';
 import dayjs from 'dayjs';
 import clone from '@/lib/clone';
+import Charts from '@/components/Charts.vue';
 
 @Component({
   components: {
     Tabs,
+    Charts
   },
 })
 export default class Statistics extends Vue {
@@ -46,7 +48,21 @@ export default class Statistics extends Vue {
   beforeCreate() {
     this.$store.commit('fetchRecords');
   }
-
+  get x(){
+    return {
+      xAxis: {
+        type: 'category',
+        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [{
+        data: [820, 932, 901, 934, 1290, 1330, 1320],
+        type: 'line'
+      }]
+    }
+  }
   get recordList() {
     return (this.$store.state as RootState).recordList;
   }
