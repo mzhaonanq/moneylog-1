@@ -5,7 +5,10 @@
         :data-source="recordTypeList"
         :value.sync="type"
     />
-      <Charts :options="x"/>
+    <div class="wrapper" ref="chartWrapper">
+      <Charts class="chart" :options="x"/>
+    </div>
+
     <ol v-if="groupedList.length>0">
       <li v-for="(group, index) in groupedList" :key="index">
         <h3 class="title">
@@ -50,18 +53,45 @@ export default class Statistics extends Vue {
   }
   get x(){
     return {
+      grid:{
+        right:0,
+        left:0
+      },
+      tooltip:{show:true},
+
       xAxis: {
+        axisTick:{alignWithLabel:true},
         type: 'category',
-        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        data: [
+            'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun',
+          'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun',
+          'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun',
+          'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun',
+            'Mon','Thu'
+        ]
       },
       yAxis: {
-        type: 'value'
+        type: 'value',
+        show:false
       },
       series: [{
-        data: [820, 932, 901, 934, 1290, 1330, 1320],
+        symbolSize:10,
+        symbol:'circle',
+        itemStyle:{color:'#666',borderColor:'#666'},
+        data: [
+            820, 932, 901, 934, 1290, 1330, 1320,
+          820, 932, 901, 934, 1290, 1330, 1320,
+          820, 932, 901, 934, 1290, 1330, 1320,
+          820, 932, 901, 934, 1290, 1330, 1320,
+            820,932
+        ],
         type: 'line'
       }]
     }
+  }
+  mounted(){
+    const div = this.$refs.chartWrapper as HTMLDivElement
+    div.scrollLeft = div.scrollWidth
   }
   get recordList() {
     return (this.$store.state as RootState).recordList;
@@ -164,5 +194,15 @@ export default class Statistics extends Vue {
 .notes {
   margin-right: auto;
   margin-left: 8px;
+}
+.wrapper{
+  overflow: auto;
+  &::-webkit-scrollbar{
+    display: none;
+  }
+}
+.chart{
+  width: 430%;
+
 }
 </style>
