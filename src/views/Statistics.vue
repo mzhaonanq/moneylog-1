@@ -37,6 +37,7 @@ import recordTypeList from '@/constants/recordTypeList.ts';
 import dayjs from 'dayjs';
 import clone from '@/lib/clone';
 import Charts from '@/components/Charts.vue';
+import _ from 'lodash'
 
 @Component({
   components: {
@@ -51,7 +52,29 @@ export default class Statistics extends Vue {
   beforeCreate() {
     this.$store.commit('fetchRecords');
   }
+  get y(){
+    const today =new Date()
+    const array =[]
+    for(let i=0; i<=29; i++){
+      const dataString = dayjs(today).subtract(i,'day').format('YYYY-MM-DD')
+      const found = _.find(this.recordList,{recordTime:dataString})
+      array.push({data:dataString,value:found?.amount})
+    }
+    array.sort((a,b)=>{
+      if(a.data>b.data){
+        return 1
+      }else if(a.data===b.data){
+        return 0
+      }else{
+        return -1
+      }
+    })
+    return array
+  }
+
   get x(){
+    const  keys = this.y.map(item=>item.data)
+    const values = this.y.map(item=>item.value)
     return {
       grid:{
         right:0,
@@ -62,13 +85,7 @@ export default class Statistics extends Vue {
       xAxis: {
         axisTick:{alignWithLabel:true},
         type: 'category',
-        data: [
-            'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun',
-          'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun',
-          'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun',
-          'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun',
-            'Mon','Thu'
-        ]
+        data: keys
       },
       yAxis: {
         type: 'value',
@@ -78,14 +95,8 @@ export default class Statistics extends Vue {
         symbolSize:10,
         symbol:'circle',
         itemStyle:{color:'#666',borderColor:'#666'},
-        data: [
-            820, 932, 901, 934, 1290, 1330, 1320,
-          820, 932, 901, 934, 1290, 1330, 1320,
-          820, 932, 901, 934, 1290, 1330, 1320,
-          820, 932, 901, 934, 1290, 1330, 1320,
-            820,932
-        ],
-        type: 'line'
+        data: values,
+        type: 'line',
       }]
     }
   }
