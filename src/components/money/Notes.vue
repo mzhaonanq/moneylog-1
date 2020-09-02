@@ -9,7 +9,7 @@
             @input="onValueChanged($event.target.value)"
             :placeholder="placeholder"
         />
-        </template>
+        </template> 
       <template v-else>
         <input
             :type="type ||'text'"

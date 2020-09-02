@@ -45,6 +45,7 @@ import _ from 'lodash'
     Charts
   },
 })
+
 export default class Statistics extends Vue {
   type = '-';
   recordTypeList = recordTypeList;
@@ -52,13 +53,15 @@ export default class Statistics extends Vue {
   beforeCreate() {
     this.$store.commit('fetchRecords');
   }
+
+
   get keyValueList(){
     const today =new Date()
     const array =[]
     for(let i=0; i<=29; i++){
       const dataString = dayjs(today).subtract(i,'day').format('YYYY-MM-DD')
-      const found = _.find(this.recordList,{recordTime:dataString})
-      array.push({key:dataString,value:found?.amount})
+      const found = _.find(this.groupedList,{title:dataString})
+      array.push({key:dataString,value:found?.total})
     }
     array.sort((a,b)=>{
       if(a.key>b.key){
@@ -107,6 +110,7 @@ export default class Statistics extends Vue {
     }
   }
   mounted(){
+
     const div = this.$refs.chartWrapper as HTMLDivElement
     div.scrollLeft = div.scrollWidth
   }

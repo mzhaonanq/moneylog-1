@@ -8,12 +8,14 @@
 export default {
   name: "App",
 };
+
 </script>
 script
 
 <style lang="scss">
 @import "~@/assets/style/helper.scss";
 @import "~@/assets/style/reset.scss";
+
 #app {
   font-family: $font-hei;
   -webkit-font-smoothing: antialiased;
