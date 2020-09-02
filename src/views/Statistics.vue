@@ -6,7 +6,7 @@
         :value.sync="type"
     />
     <div class="wrapper" ref="chartWrapper">
-      <Charts class="chart" :options="x"/>
+      <Charts class="chart" :options="chartOptions"/>
     </div>
 
     <ol v-if="groupedList.length>0">
@@ -52,18 +52,18 @@ export default class Statistics extends Vue {
   beforeCreate() {
     this.$store.commit('fetchRecords');
   }
-  get y(){
+  get keyValueList(){
     const today =new Date()
     const array =[]
     for(let i=0; i<=29; i++){
       const dataString = dayjs(today).subtract(i,'day').format('YYYY-MM-DD')
       const found = _.find(this.recordList,{recordTime:dataString})
-      array.push({data:dataString,value:found?.amount})
+      array.push({key:dataString,value:found?.amount})
     }
     array.sort((a,b)=>{
-      if(a.data>b.data){
+      if(a.key>b.key){
         return 1
-      }else if(a.data===b.data){
+      }else if(a.key===b.key){
         return 0
       }else{
         return -1
@@ -72,9 +72,9 @@ export default class Statistics extends Vue {
     return array
   }
 
-  get x(){
-    const  keys = this.y.map(item=>item.data)
-    const values = this.y.map(item=>item.value)
+  get chartOptions(){
+    const  keys = this.keyValueList.map(item=>item.key)
+    const values = this.keyValueList.map(item=>item.value)
     return {
       grid:{
         right:0,
